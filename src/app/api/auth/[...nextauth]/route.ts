@@ -1,12 +1,12 @@
 import InfojobsProvider from 'infojobs-next-auth-provider'
-import NextAuth, { NextAuthOptions } from 'next-auth'
+import NextAuth from 'next-auth'
 declare module 'next-auth' {
   interface Session {
     accessToken: string
     refreshToken: string
   }
 }
-export const authOptions: NextAuthOptions = {
+const handler = NextAuth({
   providers: [
     InfojobsProvider({
       clientId: process.env.INFOJOBS_CLIENT_ID ?? '',
@@ -32,6 +32,6 @@ export const authOptions: NextAuthOptions = {
   },
 
   debug: false,
-}
-const handler = NextAuth(authOptions)
+})
+
 export { handler as GET, handler as POST }
